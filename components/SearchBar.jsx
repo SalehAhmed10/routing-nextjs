@@ -33,7 +33,12 @@ function SearchBar() {
             />
 
             <Link
-                href="/search/[query]" as={`/search?query=${search}`}
+                href={
+                    {
+                        pathname: '/search',
+                        query: { search: search }
+                    }
+                }
 
             >
                 <button type="submit">Search</button>
