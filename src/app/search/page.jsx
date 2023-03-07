@@ -30,7 +30,7 @@ const page = ({ searchParams }) => {
             {/* display root params from url */}
 
             {/* display search params from url */}
-            <h2>Search Params: {JSON.stringify(searchParams.query)}</h2>
+            {/* <h2>Search Params: {JSON.stringify(searchParams.query)}</h2> */}
 
             {/* <h2>{JSON.stringify(searchParams)}</h2>
 
