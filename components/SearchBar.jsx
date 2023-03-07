@@ -31,10 +31,12 @@ function SearchBar() {
 
         router.push(`/search?${params.toString()}`)
 
+
     }
 
     return (
         <>
+
             <form
                 className="search-bar"
                 // onSubmit={e => {
