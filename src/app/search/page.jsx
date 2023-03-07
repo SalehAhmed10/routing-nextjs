@@ -11,10 +11,10 @@ const page = ({ searchParams
 
 }) => {
 
-    console.log(params)
+
 
     // get the value of the query parameter
-    const searchString = searchParams.query ? searchParams.query : ""
+    const searchString = searchParams.query
 
     console.log(searchString)
 
@@ -24,7 +24,7 @@ const page = ({ searchParams
             {/* display root params from url */}
             <h2>Root Params: {JSON.stringify(params)}</h2>
             {/* display search params from url */}
-            <h2>Search Params: {JSON.stringify(searchParams)}</h2>
+            <h2>Search Params: {JSON.stringify(searchParams.query)}</h2>
 
             <FetchSearchResult
                 searchString={searchString}

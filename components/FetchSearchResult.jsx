@@ -2,19 +2,21 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
 
-export default function FetchSearchResult({ searchString, query }) {
+export default function FetchSearchResult({ searchString }) {
     const [results, setResults] = useState([]);
     const [totalPages, setTotalPages] = useState(0);
     const [currentPage, setCurrentPage] = useState(1)
 
-    const searchParamsString = JSON.stringify(searchString)
-    console.log(searchParamsString)
+
+    console.log(searchString)
 
     // Listen for searchString change and reset state variables
     useEffect(() => {
+        console.log("searchString changed 1 ")
         setResults([]);
         setTotalPages(0);
         setCurrentPage(1);
+        console.log("searchString changed 2")
     }, [searchString]);
 
     const fetchResults = async (page) => {
@@ -22,7 +24,7 @@ export default function FetchSearchResult({ searchString, query }) {
         // const searchQuery = searchString;
         // console.log(searchQuery)
         const response = await fetch(
-            `https://api.themoviedb.org/3/search/multi?api_key=${apiKey}&language=en-US&query=${searchParamsString}&page=${page}&include_adult=false`
+            `https://api.themoviedb.org/3/search/multi?api_key=${apiKey}&language=en-US&query=${searchString}&page=${page}&include_adult=false`
         );
         const data = await response.json();
         setResults((prevResults) => [...prevResults, ...data.results]);
@@ -36,12 +38,15 @@ export default function FetchSearchResult({ searchString, query }) {
     };
 
     useEffect(() => {
+        console.log("useEffect called")
         fetchResults(currentPage);
+        console.log("useEffect called 2")
     }, [currentPage, searchString]);
 
     return (
         <>
             <div>{results.length}</div>
+            {results.length > 0 ? "Yes Results" : "No Results"}
 
             <InfiniteScroll
                 dataLength={results.length}
