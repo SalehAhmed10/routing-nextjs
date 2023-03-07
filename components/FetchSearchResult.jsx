@@ -5,7 +5,10 @@ import InfiniteScroll from "react-infinite-scroll-component";
 export default function FetchSearchResult({ searchString, query }) {
     const [results, setResults] = useState([]);
     const [totalPages, setTotalPages] = useState(0);
-    const [currentPage, setCurrentPage] = useState(1);
+    const [currentPage, setCurrentPage] = useState(1)
+
+    const searchParamsString = JSON.stringify(searchString)
+    console.log(searchParamsString)
 
     // Listen for searchString change and reset state variables
     useEffect(() => {
@@ -16,9 +19,10 @@ export default function FetchSearchResult({ searchString, query }) {
 
     const fetchResults = async (page) => {
         const apiKey = "d9ca72e6e734288573f3247462cf2c1b";
-        const searchQuery = searchString;
+        // const searchQuery = searchString;
+        // console.log(searchQuery)
         const response = await fetch(
-            `https://api.themoviedb.org/3/search/multi?api_key=${apiKey}&language=en-US&query=${searchQuery}&page=${page}&include_adult=false`
+            `https://api.themoviedb.org/3/search/multi?api_key=${apiKey}&language=en-US&query=${searchParamsString}&page=${page}&include_adult=false`
         );
         const data = await response.json();
         setResults((prevResults) => [...prevResults, ...data.results]);
