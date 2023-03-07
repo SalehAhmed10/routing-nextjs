@@ -1,4 +1,5 @@
 
+import MainSearch from '../../components/MainSearch'
 import SearchBar from '../../components/SearchBar'
 import './globals.css'
 
@@ -13,7 +14,8 @@ export default function RootLayout({ children }) {
       <body>
 
         <main >
-          <SearchBar />
+          <MainSearch />
+          {/* <SearchBar /> */}
 
           {children}
         </main>
