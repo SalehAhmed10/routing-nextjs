@@ -1,21 +1,22 @@
+import Image from "next/image";
 import { useEffect, useState } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
 
-export default function FetchSearchResult({ searchParams, query }) {
+export default function FetchSearchResult({ searchString, query }) {
     const [results, setResults] = useState([]);
     const [totalPages, setTotalPages] = useState(0);
     const [currentPage, setCurrentPage] = useState(1);
 
-    // Listen for searchParams change and reset state variables
+    // Listen for searchString change and reset state variables
     useEffect(() => {
         setResults([]);
         setTotalPages(0);
         setCurrentPage(1);
-    }, [searchParams]);
+    }, [searchString]);
 
     const fetchResults = async (page) => {
         const apiKey = "d9ca72e6e734288573f3247462cf2c1b";
-        const searchQuery = searchParams.query;
+        const searchQuery = searchString;
         const response = await fetch(
             `https://api.themoviedb.org/3/search/multi?api_key=${apiKey}&language=en-US&query=${searchQuery}&page=${page}&include_adult=false`
         );
@@ -32,7 +33,7 @@ export default function FetchSearchResult({ searchParams, query }) {
 
     useEffect(() => {
         fetchResults(currentPage);
-    }, [currentPage, searchParams]);
+    }, [currentPage, searchString]);
 
     return (
         <>
@@ -46,6 +47,8 @@ export default function FetchSearchResult({ searchParams, query }) {
             >
                 {results.map((item, index) => (
                     <ol key={index}>
+                        <Image src={`https://image.tmdb.org/t/p/w500${item.poster_path}`} alt={item.title || item.name} width={100} height={100} />
+
                         <li>{item.title || item.name}</li>
                         <li>{item.overview}</li>
                     </ol>
